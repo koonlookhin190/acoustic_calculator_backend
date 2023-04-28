@@ -5,7 +5,7 @@ from models.database import db
 app = Flask(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:password@127.0.0.1:3306/acoustic_pj'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:admin@127.0.0.1:3306/acoustic_pj'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 if not database_exists(app.config["SQLALCHEMY_DATABASE_URI"]):
     create_database(app.config["SQLALCHEMY_DATABASE_URI"])
