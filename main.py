@@ -153,5 +153,37 @@ def GetFloor():
     return jsonify(floor)
 
 
+@app.route('/deleteMaterial', methods=['POST'])
+def DeleteMaterial():
+    name = request.get_json()['name']
+    id = request.get_json()['id']
+
+    if name == "ผนังด้านหน้า":
+        search = FrontWall.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    if name == "ผนังด้านซ้าย":
+        search = LeftWall.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    if name == "ผนังด้านขวา":
+        search = RightWall.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    if name == "ผนังด้านหลัง":
+        search = BehindWall.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    if name == "พื้น":
+        search = Floor.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    if name == "เพดาน":
+        search = Ceiling.query.filter_by(id=id).first()
+        db.session.delete(search)
+        db.session.commit()
+    return jsonify({'name': name, 'id': id}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
