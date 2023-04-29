@@ -85,24 +85,24 @@ def CalculateMaterial():
     alphak4 = input * k4
 
     if name == "ผนังด้านหน้า":
-        db.session.add(FrontWall(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(FrontWall(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านซ้าย":
-        db.session.add(LeftWall(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(LeftWall(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านขวา":
-        db.session.add(RightWall(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(RightWall(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านหลัง":
-        db.session.add(BehindWall(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(BehindWall(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "พื้น":
-        db.session.add(Floor(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(Floor(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "เพดาน":
-        db.session.add(Ceiling(name, input, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(Ceiling(name, selected, input, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
-    return jsonify({'hz250': hz250,'hz500':hz500,'k1':k1,'k2':k2,'k4':k4}), 200
+    return jsonify({'hz250': hz250, 'hz500': hz500, 'k1': k1, 'k2': k2, 'k4': k4}), 200
 
 
 @app.route('/getFrontWall', methods=['GET'])
@@ -112,12 +112,14 @@ def GetFrontWall():
     print(frontwall)
     return jsonify(frontwall)
 
+
 @app.route('/getLeftWall', methods=['GET'])
 def GetLeftWall():
     leftwall = LeftWall.query.all()
     leftwall = LeftWall.read_list(leftwall)
     print(leftwall)
     return jsonify(leftwall)
+
 
 @app.route('/getRightWall', methods=['GET'])
 def GetRightWall():
@@ -126,12 +128,14 @@ def GetRightWall():
     print(rightwall)
     return jsonify(rightwall)
 
+
 @app.route('/getBehindWall', methods=['GET'])
 def GetBehindWall():
     behindwall = BehindWall.query.all()
     behindwall = BehindWall.read_list(behindwall)
     print(behindwall)
     return jsonify(behindwall)
+
 
 @app.route('/getCeiling', methods=['GET'])
 def GetCeiling():
@@ -140,12 +144,14 @@ def GetCeiling():
     print(ceiling)
     return jsonify(ceiling)
 
+
 @app.route('/getFloor', methods=['GET'])
 def GetFloor():
     floor = Floor.query.all()
     floor = Floor.read_list(floor)
     print(floor)
     return jsonify(floor)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

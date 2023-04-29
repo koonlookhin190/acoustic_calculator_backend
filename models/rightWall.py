@@ -4,6 +4,7 @@ class RightWall(db.Model):
     __tablename__ = 'rightwall'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
+    selected = db.Column(db.String(255))
     input = db.Column(db.Float)
     hz250 = db.Column(db.Float)
     hz500 = db.Column(db.Float)
@@ -11,8 +12,9 @@ class RightWall(db.Model):
     k2 = db.Column(db.Float)
     k4 = db.Column(db.Float)
 
-    def __init__(self, name, input, hz250, hz500, k1, k2, k4):
+    def __init__(self, name, selected, input, hz250, hz500, k1, k2, k4):
         self.name = name
+        self.selected = selected
         self.input = input
         self.hz250 = hz250
         self.hz500 = hz500
@@ -25,6 +27,7 @@ class RightWall(db.Model):
         return {
             'id': self.id,
             'input': self.input,
+            'selected': self.selected,
             'name': self.name,
             'hz250': self.hz250,
             'hz500': self.hz500,
