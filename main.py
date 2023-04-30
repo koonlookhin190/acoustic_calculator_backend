@@ -185,5 +185,135 @@ def DeleteMaterial():
     return jsonify({'name': name, 'id': id}), 200
 
 
+@app.route('/calculateAll', methods=['POST'])
+def CalculateAll():
+    volume = request.get_json()['volume']
+    frontwall = FrontWall.query.all()
+    frontwall_hz250_total = 0
+    frontwall_hz500_total = 0
+    frontwall_k1_total = 0
+    frontwall_k2_total = 0
+    frontwall_k4_total = 0
+
+    for fw in frontwall:
+        frontwall_hz250_total += fw.hz250
+        frontwall_hz500_total += fw.hz500
+        frontwall_k1_total += fw.k1
+        frontwall_k2_total += fw.k2
+        frontwall_k4_total += fw.k4
+
+    leftwall = LeftWall.query.all()
+    leftwall_hz250_total = 0
+    leftwall_hz500_total = 0
+    leftwall_k1_total = 0
+    leftwall_k2_total = 0
+    leftwall_k4_total = 0
+
+    for lw in leftwall:
+        leftwall_hz250_total += lw.hz250
+        leftwall_hz500_total += lw.hz500
+        leftwall_k1_total += lw.k1
+        leftwall_k2_total += lw.k2
+        leftwall_k4_total += lw.k4
+
+    rightwall = RightWall.query.all()
+    rightwall_hz250_total = 0
+    rightwall_hz500_total = 0
+    rightwall_k1_total = 0
+    rightwall_k2_total = 0
+    rightwall_k4_total = 0
+
+    for rw in rightwall:
+        rightwall_hz250_total += rw.hz250
+        rightwall_hz500_total += rw.hz500
+        rightwall_k1_total += rw.k1
+        rightwall_k2_total += rw.k2
+        rightwall_k4_total += rw.k4
+
+    rightwall = RightWall.query.all()
+    rightwall_hz250_total = 0
+    rightwall_hz500_total = 0
+    rightwall_k1_total = 0
+    rightwall_k2_total = 0
+    rightwall_k4_total = 0
+
+    for rw in rightwall:
+        rightwall_hz250_total += rw.hz250
+        rightwall_hz500_total += rw.hz500
+        rightwall_k1_total += rw.k1
+        rightwall_k2_total += rw.k2
+        rightwall_k4_total += rw.k4
+
+    behindwall = BehindWall.query.all()
+    behindwall_hz250_total = 0
+    behindwall_hz500_total = 0
+    behindwall_k1_total = 0
+    behindwall_k2_total = 0
+    behindwall_k4_total = 0
+
+    for bw in behindwall:
+        behindwall_hz250_total += bw.hz250
+        behindwall_hz500_total += bw.hz500
+        behindwall_k1_total += bw.k1
+        behindwall_k2_total += bw.k2
+        behindwall_k4_total += bw.k4
+
+    floor = Floor.query.all()
+    floor_hz250_total = 0
+    floor_hz500_total = 0
+    floor_k1_total = 0
+    floor_k2_total = 0
+    floor_k4_total = 0
+
+    for f in floor:
+        floor_hz250_total += f.hz250
+        floor_hz500_total += f.hz500
+        floor_k1_total += f.k1
+        floor_k2_total += f.k2
+        floor_k4_total += f.k4
+
+    ceilling = Ceiling.query.all()
+    ceilling_hz250_total = 0
+    ceilling_hz500_total = 0
+    ceilling_k1_total = 0
+    ceilling_k2_total = 0
+    ceilling_k4_total = 0
+
+    for ce in ceilling:
+        ceilling_hz250_total += ce.hz250
+        ceilling_hz500_total += ce.hz500
+        ceilling_k1_total += ce.k1
+        ceilling_k2_total += ce.k2
+        ceilling_k4_total += ce.k4
+
+    final_hz250 = frontwall_hz250_total+leftwall_hz250_total+rightwall_hz250_total+behindwall_hz250_total+floor_hz250_total+ceilling_hz250_total
+
+    final_hz500 = frontwall_hz500_total+leftwall_hz500_total+rightwall_hz500_total+behindwall_hz500_total+floor_hz500_total+ceilling_hz500_total
+
+    final_k1 = frontwall_k1_total + leftwall_k1_total + rightwall_k1_total + behindwall_k1_total + floor_k1_total + ceilling_k1_total
+
+    final_k2 = frontwall_k2_total + leftwall_k2_total + rightwall_k2_total + behindwall_k2_total + floor_k2_total + ceilling_k2_total
+
+    final_k4 = frontwall_k4_total + leftwall_k4_total + rightwall_k4_total + behindwall_k4_total + floor_k4_total + ceilling_k4_total
+
+    at250 = 0.161 * volume / final_hz250
+    at250 = round(at250,2)
+    at500 = 0.161 * volume / final_hz500
+    at500 = round(at500, 2)
+    atK1 = 0.161 * volume / final_k1
+    atK1 = round(atK1, 2)
+    atK2 = 0.161 * volume / final_k2
+    atK2 = round(atK2, 2)
+    atK4 = 0.161 * volume / final_k4
+    atK4 = round(atK4, 2)
+
+    print(at250)
+    print(at500)
+    print(atK1)
+    print(atK2)
+    print(atK4)
+    return jsonify({'at250': at250, 'at500': at500, 'atK1': atK1, 'atK2': atK2, 'atK4': atK4}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
