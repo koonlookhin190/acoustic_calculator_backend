@@ -1,11 +1,12 @@
 import bcrypt
 from sqlalchemy import event
 from .materialUse import Material
+from .product import Product
 from .database import db
 
 
 @event.listens_for(Material.__table__, 'after_create')
-def create_user(*args, **kwargs):
+def create_material(*args, **kwargs):
     db.session.add(Material("Cylence Zandera", 0.24, 0.68, 0.89, 0.83, 0.77))
     db.session.add(Material("พื้นไม้ลามิเนต", 0.3, 0.2, 0.2, 0.15, 0.1))
     db.session.add(Material("พื้นไม้ปาเก้", 0.03, 0.06, 0.09, 0.1, 0.2))
@@ -26,4 +27,12 @@ def create_user(*args, **kwargs):
     db.session.add(Material("โพลี 10 mm", 0.12, 0.27, 0.6, 0.81, 0.93))
     db.session.add(Material("พื้นปูน", 0.03, 0.03, 0.03, 0.03, 0.02))
     db.session.add(Material("ใยแก้ว / ฟองน้ำ 25 mm", 0.34, 0.66, 0.9, 0.86, 0.74))
+    db.session.commit()
+
+
+@event.listens_for(Product.__table__, 'after_create')
+def create_product(*args, **kwargs):
+    db.session.add(Product("ProductA", 0.3, 0.6, 0.8, 0.9, 0.7, 0.5))
+    db.session.add(Product("ProductB", 0.3, 0.7, 0.8, 0.9, 0.5, 0.5))
+    db.session.add(Product("ProductC", 0.3, 0.4, 0.8, 0.9, 0.6, 0.8))
     db.session.commit()
