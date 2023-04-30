@@ -588,6 +588,7 @@ def CalculatePro():
     proleftwall_alphak1 = 0
     proleftwall_alphak2 = 0
     proleftwall_alphak4 = 0
+    keep_allarea2 = 0
 
     for lw in proleftwall:
         search = LeftWall.query.filter_by(selected=lw.material).first()
@@ -598,17 +599,17 @@ def CalculatePro():
                 keepinput += r.input
 
         area = area - keepinput
-        keep_allarea += area
-        keep_allarea += keepinput
+        keep_allarea2 += area
+        keep_allarea2 += keepinput
         search2 = Material.query.filter_by(name=lw.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea <= leftwall_area:
-            print(keep_allarea)
-            proleftwall_alpha250 = proleftwall_alpha250 + (area * hz250)
+        print(keep_allarea2)
+        if keep_allarea2 <= leftwall_area:
+            proleftwall_alpha250 += area * hz250
             proleftwall_alpha500 = proleftwall_alpha500 + (area * hz500)
             proleftwall_alphak1 = proleftwall_alphak1 + (area * k1)
             proleftwall_alphak2 = proleftwall_alphak2 + (area * k2)
@@ -631,7 +632,7 @@ def CalculatePro():
     prorightwall_alphak1 = 0
     prorightwall_alphak2 = 0
     prorightwall_alphak4 = 0
-
+    keep_allarea3 = 0
     for rw in prorightwall:
         search = RightWall.query.filter_by(selected=rw.material).first()
         area = search.input
@@ -641,16 +642,16 @@ def CalculatePro():
                 keepinput += r.input
 
         area = area - keepinput
-        keep_allarea += area
-        keep_allarea += keepinput
+        keep_allarea3 += area
+        keep_allarea3 += keepinput
         search2 = Material.query.filter_by(name=rw.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea <= rightwall_area:
-            print(keep_allarea)
+        if keep_allarea3 <= rightwall_area:
+            print(keep_allarea3)
             prorightwall_alpha250 = prorightwall_alpha250 + (area * hz250)
             prorightwall_alpha500 = prorightwall_alpha500 + (area * hz500)
             prorightwall_alphak1 = prorightwall_alphak1 + (area * k1)
@@ -674,7 +675,7 @@ def CalculatePro():
     probehindwall_alphak1 = 0
     probehindwall_alphak2 = 0
     probehindwall_alphak4 = 0
-
+    keep_allarea4 = 0
     for bw in probehindwall:
         search = BehindWall.query.filter_by(selected=bw.material).first()
         area = search.input
@@ -684,16 +685,16 @@ def CalculatePro():
                 keepinput += r.input
 
         area = area - keepinput
-        keep_allarea += area
-        keep_allarea += keepinput
+        keep_allarea4 += area
+        keep_allarea4 += keepinput
         search2 = Material.query.filter_by(name=bw.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea <= behindwall_area:
-            print(keep_allarea)
+        if keep_allarea4 <= behindwall_area:
+            print(keep_allarea4)
             probehindwall_alpha250 = probehindwall_alpha250 + (area * hz250)
             probehindwall_alpha500 = probehindwall_alpha500 + (area * hz500)
             probehindwall_alphak1 = probehindwall_alphak1 + (area * k1)
@@ -717,6 +718,7 @@ def CalculatePro():
     profloor_alphak1 = 0
     profloor_alphak2 = 0
     profloor_alphak4 = 0
+    keep_allarea5 = 0
     for f in profloor:
         search = Floor.query.filter_by(selected=f.material).first()
         area = search.input
@@ -726,16 +728,16 @@ def CalculatePro():
                 keepinput += r.input
 
         area = area - keepinput
-        keep_allarea += area
-        keep_allarea += keepinput
+        keep_allarea5 += area
+        keep_allarea5 += keepinput
         search2 = Material.query.filter_by(name=f.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea <= floor_area:
-            print(keep_allarea)
+        if keep_allarea5 <= floor_area:
+            print(keep_allarea5)
             profloor_alpha250 = profloor_alpha250 + (area * hz250)
             profloor_alpha500 = profloor_alpha500 + (area * hz500)
             profloor_alphak1 = profloor_alphak1 + (area * k1)
@@ -759,7 +761,7 @@ def CalculatePro():
     proceilling_alphak1 = 0
     proceilling_alphak2 = 0
     proceilling_alphak4 = 0
-
+    keep_allarea6 = 0
     for ce in proceilling:
         search = Ceiling.query.filter_by(selected=ce.material).first()
         area = search.input
@@ -769,16 +771,16 @@ def CalculatePro():
                 keepinput += r.input
 
         area = area - keepinput
-        keep_allarea += area
-        keep_allarea += keepinput
+        keep_allarea6 += area
+        keep_allarea6 += keepinput
         search2 = Material.query.filter_by(name=ce.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea <= floor_area:
-            print(keep_allarea)
+        if keep_allarea6 <= floor_area:
+            print(keep_allarea6)
             proceilling_alpha250 = proceilling_alpha250 + (area * hz250)
             proceilling_alpha500 = proceilling_alpha500 + (area * hz500)
             proceilling_alphak1 = proceilling_alphak1 + (area * k1)
