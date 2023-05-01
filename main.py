@@ -56,7 +56,11 @@ def Calcuclate():
         volume=volume,
         total_floor_area=total_floor_area,
         total_celling_area=total_celling_area,
-        total_wall_area=total_wall_area
+        total_wall_area=total_wall_area,
+        right_wall = right_wall,
+        left_wall = left_wall,
+        front_wall = front_wall,
+        behind_wall = behind_wall
     )
 
 
@@ -719,18 +723,18 @@ def CalculatePro():
     profloor_alphak2 = 0
     profloor_alphak4 = 0
     keep_allarea5 = 0
-    for f in profloor:
-        search = Floor.query.filter_by(selected=f.material).first()
+    for fl in profloor:
+        search = Floor.query.filter_by(selected=fl.material).first()
         area = search.input
         keepinput = 0
         for r in profloor:
-            if f.material == r.material:
+            if fl.material == r.material:
                 keepinput += r.input
 
         area = area - keepinput
         keep_allarea5 += area
         keep_allarea5 += keepinput
-        search2 = Material.query.filter_by(name=f.material).first()
+        search2 = Material.query.filter_by(name=fl.material).first()
         hz250 = search2.hz250
         hz500 = search2.hz500
         k1 = search2.k1
@@ -744,11 +748,11 @@ def CalculatePro():
             profloor_alphak2 = profloor_alphak2 + (area * k2)
             profloor_alphak4 = profloor_alphak4 + (area * k4)
 
-        profloor_hz250_total += f.hz250
-        profloor_hz500_total += f.hz500
-        profloor_k1_total += f.k1
-        profloor_k2_total += f.k2
-        profloor_k4_total += f.k4
+        profloor_hz250_total += fl.hz250
+        profloor_hz500_total += fl.hz500
+        profloor_k1_total += fl.k1
+        profloor_k2_total += fl.k2
+        profloor_k4_total += fl.k4
 
     proceilling = ProductCeiling.query.all()
     proceilling_hz250_total = 0
@@ -766,7 +770,7 @@ def CalculatePro():
         search = Ceiling.query.filter_by(selected=ce.material).first()
         area = search.input
         keepinput = 0
-        for r in profloor:
+        for r in proceilling:
             if ce.material == r.material:
                 keepinput += r.input
 
@@ -779,7 +783,7 @@ def CalculatePro():
         k1 = search2.k1
         k2 = search2.k2
         k4 = search2.k4
-        if keep_allarea6 <= floor_area:
+        if keep_allarea6 <= ceilling_area:
             print(keep_allarea6)
             proceilling_alpha250 = proceilling_alpha250 + (area * hz250)
             proceilling_alpha500 = proceilling_alpha500 + (area * hz500)
@@ -787,6 +791,8 @@ def CalculatePro():
             proceilling_alphak2 = proceilling_alphak2 + (area * k2)
             proceilling_alphak4 = proceilling_alphak4 + (area * k4)
 
+        print("Text4")
+        print(proceilling_alpha250)
         proceilling_hz250_total += ce.hz250
         proceilling_hz500_total += ce.hz500
         proceilling_k1_total += ce.k1
@@ -795,34 +801,51 @@ def CalculatePro():
 
 
     profinal_hz250 = profrontwall_hz250_total + proleftwall_hz250_total + prorightwall_hz250_total + probehindwall_hz250_total + profloor_hz250_total + proceilling_hz250_total
-
+    print("text")
+    print(profinal_hz250)
     profinal_hz500 = profrontwall_hz500_total + proleftwall_hz500_total + prorightwall_hz500_total + probehindwall_hz500_total + profloor_hz500_total + proceilling_hz500_total
+    print("text77")
+    print(profinal_hz500)
+    profinal_k1 = profrontwall_k1_total + proleftwall_k1_total + prorightwall_k1_total + probehindwall_k1_total + profloor_k1_total + proceilling_k1_total
 
-    profinal_k1 = profrontwall_k1_total + proleftwall_k1_total + prorightwall_k1_total + probehindwall_k1_total + floor_k1_total + proceilling_k1_total
+    profinal_k2 = profrontwall_k2_total + proleftwall_k2_total + prorightwall_k2_total + probehindwall_k2_total + profloor_k2_total + proceilling_k2_total
 
-    profinal_k2 = profrontwall_k2_total + proleftwall_k2_total + prorightwall_k2_total + probehindwall_k2_total + floor_k2_total + proceilling_k2_total
-
-    profinal_k4 = profrontwall_k4_total + proleftwall_k4_total + prorightwall_k4_total + probehindwall_k4_total + floor_k4_total + proceilling_k4_total
+    profinal_k4 = profrontwall_k4_total + proleftwall_k4_total + prorightwall_k4_total + probehindwall_k4_total + profloor_k4_total + proceilling_k4_total
 
     finalAlpa250 = profrontwall_alpha250 + proleftwall_alpha250 + prorightwall_alpha250 + probehindwall_alpha250 + profloor_alpha250 + proceilling_alpha250
 
+    print(finalAlpa250)
     finalAlpa500 = profrontwall_alpha500 + proleftwall_alpha500 + prorightwall_alpha500 + probehindwall_alpha500 + profloor_alpha500 + proceilling_alpha500
-
+    print(finalAlpa500)
+    print("text2")
     finalAlpa1k = profrontwall_alphak1 + proleftwall_alphak1 + prorightwall_alphak1 + probehindwall_alphak1 + profloor_alphak1 + proceilling_alphak1
 
     finalAlpa2k = profrontwall_alphak2 + proleftwall_alphak2 + prorightwall_alphak2 + probehindwall_alphak2 + profloor_alphak2 + proceilling_alphak2
-
     finalAlpa4k = profrontwall_alphak4 + proleftwall_alphak4 + prorightwall_alphak4 + probehindwall_alphak4 + profloor_alphak4 + proceilling_alphak4
 
-    at250 = 0.161*volume/finalAlpa250+profinal_hz250
+    print("text3")
+    plusat250 = finalAlpa250+profinal_hz250
+    print(plusat250)
+    dividedat250 = volume/plusat250
+    at250 = 0.161 * dividedat250
     at250 = round(at250, 2)
-    at500 = 0.161 * volume / finalAlpa500 + profinal_hz500
+    plusat500 = finalAlpa500+profinal_hz500
+    dividedat500 = volume / plusat500
+    at500 = 0.161 * dividedat500
+    print("rt500")
+    print(at500)
     at500 = round(at500, 2)
-    at1k = 0.161 * volume / finalAlpa1k + profinal_k1
+    plusat1k = finalAlpa1k + profinal_k1
+    dividedat1k = volume / plusat1k
+    at1k = 0.161 * dividedat1k
     at1k = round(at1k, 2)
-    at2k = 0.161 * volume / finalAlpa2k + profinal_k2
+    plusat2k = finalAlpa2k + profinal_k2
+    dividedat2k = volume / plusat2k
+    at2k = 0.161 * dividedat2k
     at2k = round(at2k, 2)
-    at4k = 0.161 * volume / finalAlpa4k + profinal_k4
+    plusat4k = finalAlpa4k + profinal_k4
+    dividedat4k = volume / plusat4k
+    at4k = 0.161 * dividedat4k
     at4k = round(at4k, 2)
 
     return jsonify({'at250': at250, 'at500': at500, 'atK1': at1k, 'atK2': at2k, 'atK4': at4k}), 200
