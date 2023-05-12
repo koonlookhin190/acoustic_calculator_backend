@@ -55,10 +55,10 @@ def Calcuclate():
         total_floor_area=total_floor_area,
         total_celling_area=total_celling_area,
         total_wall_area=total_wall_area,
-        right_wall = right_wall,
-        left_wall = left_wall,
-        front_wall = front_wall,
-        behind_wall = behind_wall
+        right_wall=right_wall,
+        left_wall=left_wall,
+        front_wall=front_wall,
+        behind_wall=behind_wall
     )
 
 
@@ -141,22 +141,22 @@ def CalculateProduct():
     alphak4 = area * k4
 
     if name == "ผนังด้านหน้า":
-        db.session.add(ProductFrontWall(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductFrontWall(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านซ้าย":
-        db.session.add(ProductLeftWall(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductLeftWall(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านขวา":
-        db.session.add(ProductRightWall(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductRightWall(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "ผนังด้านหลัง":
-        db.session.add(ProductBehindWall(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductBehindWall(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "พื้น":
-        db.session.add(ProductFloor(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductFloor(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     if name == "เพดาน":
-        db.session.add(ProductCeiling(name, selected, area,material, alpha250, alpha500, alphak1, alphak2, alphak4))
+        db.session.add(ProductCeiling(name, selected, area, material, alpha250, alpha500, alphak1, alphak2, alphak4))
         db.session.commit()
     return jsonify({'hz250': hz250, 'hz500': hz500, 'k1': k1, 'k2': k2, 'k4': k4}), 200
 
@@ -548,6 +548,29 @@ def CalculatePro():
     profrontwall_alphak2 = 0
     profrontwall_alphak4 = 0
     keep_allarea = 0
+    if profrontwall == []:
+        profrontwall_alpha250 = frontwall_hz250_total
+        profrontwall_alpha500 = frontwall_hz500_total
+        profrontwall_alphak1 = frontwall_k1_total
+        profrontwall_alphak2 = frontwall_k2_total
+        profrontwall_alphak4 = frontwall_k4_total
+        fwdata = FrontWall.query.all()
+        for matfw in fwdata:
+            search = Material.query.filter_by(name=matfw.selected).first()
+            profrontwall_hz250_total += search.hz250
+
+            profrontwall_hz500_total += search.hz500
+
+
+            profrontwall_k1_total += search.k1
+
+
+            profrontwall_k2_total += search.k2
+
+            profrontwall_k4_total += search.k4
+
+
+
     for fw in profrontwall:
         search = FrontWall.query.filter_by(selected=fw.material).first()
         area = search.input
@@ -567,11 +590,11 @@ def CalculatePro():
         k4 = search2.k4
         if keep_allarea <= frontwall_area:
             print(keep_allarea)
-            profrontwall_alpha250 = profrontwall_alpha250+(area * hz250)
-            profrontwall_alpha500 = profrontwall_alpha500+(area * hz500)
-            profrontwall_alphak1 = profrontwall_alphak1+(area * k1)
-            profrontwall_alphak2 = profrontwall_alphak2+(area * k2)
-            profrontwall_alphak4 = profrontwall_alphak4+(area * k4)
+            profrontwall_alpha250 = profrontwall_alpha250 + (area * hz250)
+            profrontwall_alpha500 = profrontwall_alpha500 + (area * hz500)
+            profrontwall_alphak1 = profrontwall_alphak1 + (area * k1)
+            profrontwall_alphak2 = profrontwall_alphak2 + (area * k2)
+            profrontwall_alphak4 = profrontwall_alphak4 + (area * k4)
 
         profrontwall_hz250_total += fw.hz250
         profrontwall_hz500_total += fw.hz500
@@ -591,6 +614,28 @@ def CalculatePro():
     proleftwall_alphak2 = 0
     proleftwall_alphak4 = 0
     keep_allarea2 = 0
+    if proleftwall == []:
+        proleftwall_alpha250 = leftwall_hz250_total
+        proleftwall_alpha500 = leftwall_hz500_total
+        proleftwall_alphak1 = leftwall_k1_total
+        proleftwall_alphak2 = leftwall_k2_total
+        proleftwall_alphak4 = leftwall_k4_total
+        lwdata = LeftWall.query.all()
+        for matlw in lwdata:
+            search = Material.query.filter_by(name=matlw.selected).first()
+            proleftwall_hz250_total += search.hz250
+
+
+            proleftwall_hz500_total += search.hz500
+
+
+            proleftwall_k1_total += search.k1
+
+
+            proleftwall_k2_total += search.k2
+
+
+            proleftwall_k4_total += search.k4
 
     for lw in proleftwall:
         search = LeftWall.query.filter_by(selected=lw.material).first()
@@ -635,6 +680,29 @@ def CalculatePro():
     prorightwall_alphak2 = 0
     prorightwall_alphak4 = 0
     keep_allarea3 = 0
+    rwdata = RightWall.query.all()
+    if prorightwall == []:
+        prorightwall_alpha250 = rightwall_hz250_total
+        prorightwall_alpha500 = rightwall_hz500_total
+        prorightwall_alphak1 = rightwall_k1_total
+        prorightwall_alphak2 = rightwall_k2_total
+        prorightwall_alphak4 = rightwall_k4_total
+        for matrw in rwdata:
+            search = Material.query.filter_by(name=matrw.selected).first()
+            prorightwall_hz250_total += search.hz250
+
+
+            prorightwall_hz500_total += search.hz500
+
+
+            prorightwall_k1_total += search.k1
+
+
+            prorightwall_k2_total += search.k2
+
+
+            prorightwall_k4_total += search.k4
+
     for rw in prorightwall:
         search = RightWall.query.filter_by(selected=rw.material).first()
         area = search.input
@@ -678,6 +746,29 @@ def CalculatePro():
     probehindwall_alphak2 = 0
     probehindwall_alphak4 = 0
     keep_allarea4 = 0
+    bhdata = BehindWall.query.all()
+    if probehindwall == []:
+        probehindwall_alpha250 = behindwall_hz250_total
+        probehindwall_alpha500 = behindwall_hz500_total
+        probehindwall_alphak1 = behindwall_k1_total
+        probehindwall_alphak2 = behindwall_k2_total
+        probehindwall_alphak4 = behindwall_k4_total
+        for matbh in bhdata:
+            search = Material.query.filter_by(name=matbh.selected).first()
+            probehindwall_hz250_total += search.hz250
+
+
+            probehindwall_hz500_total += search.hz500
+
+
+            probehindwall_k1_total += search.k1
+
+
+            probehindwall_k2_total += search.k2
+
+
+            probehindwall_k4_total += search.k4
+
     for bw in probehindwall:
         search = BehindWall.query.filter_by(selected=bw.material).first()
         area = search.input
@@ -721,6 +812,29 @@ def CalculatePro():
     profloor_alphak2 = 0
     profloor_alphak4 = 0
     keep_allarea5 = 0
+    fdata = Floor.query.all()
+    if profloor == []:
+        profloor_alpha250 = floor_hz250_total
+        profloor_alpha500 = floor_hz500_total
+        profloor_alphak1 = floor_k1_total
+        profloor_alphak2 = floor_k2_total
+        profloor_alphak4 = floor_k4_total
+        for matf in fdata:
+            search = Material.query.filter_by(name=matf.selected).first()
+            profloor_hz250_total += search.hz250
+
+
+            profloor_hz500_total += search.hz500
+
+
+            profloor_k1_total += search.k1
+
+
+            profloor_k2_total += search.k2
+
+
+            profloor_k4_total += search.k4
+
     for fl in profloor:
         search = Floor.query.filter_by(selected=fl.material).first()
         area = search.input
@@ -764,6 +878,30 @@ def CalculatePro():
     proceilling_alphak2 = 0
     proceilling_alphak4 = 0
     keep_allarea6 = 0
+    cdata = Ceiling.query.all()
+    if proceilling == []:
+        proceilling_alpha250 = ceilling_hz250_total
+        proceilling_alpha500 = ceilling_hz500_total
+        proceilling_alphak1 = ceilling_k1_total
+        proceilling_alphak2 = ceilling_k2_total
+        proceilling_alphak4 = ceilling_k4_total
+        for matc in cdata:
+            search = Material.query.filter_by(name=matc.selected).first()
+            proceilling_hz250_total += search.hz250
+
+
+            proceilling_hz500_total += search.hz500
+
+
+            proceilling_k1_total += search.k1
+
+
+            proceilling_k2_total += search.k2
+
+
+            proceilling_k4_total += search.k4
+
+
     for ce in proceilling:
         search = Ceiling.query.filter_by(selected=ce.material).first()
         area = search.input
@@ -797,13 +935,10 @@ def CalculatePro():
         proceilling_k2_total += ce.k2
         proceilling_k4_total += ce.k4
 
-
     profinal_hz250 = profrontwall_hz250_total + proleftwall_hz250_total + prorightwall_hz250_total + probehindwall_hz250_total + profloor_hz250_total + proceilling_hz250_total
-    print("text")
-    print(profinal_hz250)
+
     profinal_hz500 = profrontwall_hz500_total + proleftwall_hz500_total + prorightwall_hz500_total + probehindwall_hz500_total + profloor_hz500_total + proceilling_hz500_total
-    print("text77")
-    print(profinal_hz500)
+
     profinal_k1 = profrontwall_k1_total + proleftwall_k1_total + prorightwall_k1_total + probehindwall_k1_total + profloor_k1_total + proceilling_k1_total
 
     profinal_k2 = profrontwall_k2_total + proleftwall_k2_total + prorightwall_k2_total + probehindwall_k2_total + profloor_k2_total + proceilling_k2_total
@@ -812,22 +947,20 @@ def CalculatePro():
 
     finalAlpa250 = profrontwall_alpha250 + proleftwall_alpha250 + prorightwall_alpha250 + probehindwall_alpha250 + profloor_alpha250 + proceilling_alpha250
 
-    print(finalAlpa250)
     finalAlpa500 = profrontwall_alpha500 + proleftwall_alpha500 + prorightwall_alpha500 + probehindwall_alpha500 + profloor_alpha500 + proceilling_alpha500
-    print(finalAlpa500)
-    print("text2")
+
     finalAlpa1k = profrontwall_alphak1 + proleftwall_alphak1 + prorightwall_alphak1 + probehindwall_alphak1 + profloor_alphak1 + proceilling_alphak1
 
     finalAlpa2k = profrontwall_alphak2 + proleftwall_alphak2 + prorightwall_alphak2 + probehindwall_alphak2 + profloor_alphak2 + proceilling_alphak2
+
     finalAlpa4k = profrontwall_alphak4 + proleftwall_alphak4 + prorightwall_alphak4 + probehindwall_alphak4 + profloor_alphak4 + proceilling_alphak4
 
-    print("text3")
-    plusat250 = finalAlpa250+profinal_hz250
+    plusat250 = finalAlpa250 + profinal_hz250
     print(plusat250)
-    dividedat250 = volume/plusat250
+    dividedat250 = volume / plusat250
     at250 = 0.161 * dividedat250
     at250 = round(at250, 2)
-    plusat500 = finalAlpa500+profinal_hz500
+    plusat500 = finalAlpa500 + profinal_hz500
     dividedat500 = volume / plusat500
     at500 = 0.161 * dividedat500
     print("rt500")
