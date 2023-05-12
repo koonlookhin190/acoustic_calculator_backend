@@ -409,7 +409,8 @@ def CalculateAll():
         ceilling_k4_total += ce.k4
 
     final_hz250 = frontwall_hz250_total + leftwall_hz250_total + rightwall_hz250_total + behindwall_hz250_total + floor_hz250_total + ceilling_hz250_total
-
+    print("Texttttt")
+    print(final_hz250)
     final_hz500 = frontwall_hz500_total + leftwall_hz500_total + rightwall_hz500_total + behindwall_hz500_total + floor_hz500_total + ceilling_hz500_total
 
     final_k1 = frontwall_k1_total + leftwall_k1_total + rightwall_k1_total + behindwall_k1_total + floor_k1_total + ceilling_k1_total
@@ -555,20 +556,20 @@ def CalculatePro():
         profrontwall_alphak2 = frontwall_k2_total
         profrontwall_alphak4 = frontwall_k4_total
         fwdata = FrontWall.query.all()
-        for matfw in fwdata:
-            search = Material.query.filter_by(name=matfw.selected).first()
-            profrontwall_hz250_total += search.hz250
-
-            profrontwall_hz500_total += search.hz500
-
-
-            profrontwall_k1_total += search.k1
-
-
-            profrontwall_k2_total += search.k2
-
-            profrontwall_k4_total += search.k4
-
+        # for matfw in fwdata:
+        #     search = Material.query.filter_by(name=matfw.selected).first()
+        #     profrontwall_hz250_total += search.hz250
+        #
+        #     profrontwall_hz500_total += search.hz500
+        #
+        #
+        #     profrontwall_k1_total += search.k1
+        #
+        #
+        #     profrontwall_k2_total += search.k2
+        #
+        #     profrontwall_k4_total += search.k4
+        #
 
 
     for fw in profrontwall:
@@ -621,21 +622,21 @@ def CalculatePro():
         proleftwall_alphak2 = leftwall_k2_total
         proleftwall_alphak4 = leftwall_k4_total
         lwdata = LeftWall.query.all()
-        for matlw in lwdata:
-            search = Material.query.filter_by(name=matlw.selected).first()
-            proleftwall_hz250_total += search.hz250
-
-
-            proleftwall_hz500_total += search.hz500
-
-
-            proleftwall_k1_total += search.k1
-
-
-            proleftwall_k2_total += search.k2
-
-
-            proleftwall_k4_total += search.k4
+        # for matlw in lwdata:
+        #     search = Material.query.filter_by(name=matlw.selected).first()
+        #     proleftwall_hz250_total += search.hz250
+        #
+        #
+        #     proleftwall_hz500_total += search.hz500
+        #
+        #
+        #     proleftwall_k1_total += search.k1
+        #
+        #
+        #     proleftwall_k2_total += search.k2
+        #
+        #
+        #     proleftwall_k4_total += search.k4
 
     for lw in proleftwall:
         search = LeftWall.query.filter_by(selected=lw.material).first()
@@ -680,28 +681,28 @@ def CalculatePro():
     prorightwall_alphak2 = 0
     prorightwall_alphak4 = 0
     keep_allarea3 = 0
-    rwdata = RightWall.query.all()
+    # rwdata = RightWall.query.all()
     if prorightwall == []:
         prorightwall_alpha250 = rightwall_hz250_total
         prorightwall_alpha500 = rightwall_hz500_total
         prorightwall_alphak1 = rightwall_k1_total
         prorightwall_alphak2 = rightwall_k2_total
         prorightwall_alphak4 = rightwall_k4_total
-        for matrw in rwdata:
-            search = Material.query.filter_by(name=matrw.selected).first()
-            prorightwall_hz250_total += search.hz250
-
-
-            prorightwall_hz500_total += search.hz500
-
-
-            prorightwall_k1_total += search.k1
-
-
-            prorightwall_k2_total += search.k2
-
-
-            prorightwall_k4_total += search.k4
+        # for matrw in rwdata:
+        #     search = Material.query.filter_by(name=matrw.selected).first()
+        #     prorightwall_hz250_total += search.hz250
+        #
+        #
+        #     prorightwall_hz500_total += search.hz500
+        #
+        #
+        #     prorightwall_k1_total += search.k1
+        #
+        #
+        #     prorightwall_k2_total += search.k2
+        #
+        #
+        #     prorightwall_k4_total += search.k4
 
     for rw in prorightwall:
         search = RightWall.query.filter_by(selected=rw.material).first()
@@ -753,21 +754,21 @@ def CalculatePro():
         probehindwall_alphak1 = behindwall_k1_total
         probehindwall_alphak2 = behindwall_k2_total
         probehindwall_alphak4 = behindwall_k4_total
-        for matbh in bhdata:
-            search = Material.query.filter_by(name=matbh.selected).first()
-            probehindwall_hz250_total += search.hz250
-
-
-            probehindwall_hz500_total += search.hz500
-
-
-            probehindwall_k1_total += search.k1
-
-
-            probehindwall_k2_total += search.k2
-
-
-            probehindwall_k4_total += search.k4
+        # for matbh in bhdata:
+        #     search = Material.query.filter_by(name=matbh.selected).first()
+        #     probehindwall_hz250_total += search.hz250
+        #
+        #
+        #     probehindwall_hz500_total += search.hz500
+        #
+        #
+        #     probehindwall_k1_total += search.k1
+        #
+        #
+        #     probehindwall_k2_total += search.k2
+        #
+        #
+        #     probehindwall_k4_total += search.k4
 
     for bw in probehindwall:
         search = BehindWall.query.filter_by(selected=bw.material).first()
@@ -819,21 +820,21 @@ def CalculatePro():
         profloor_alphak1 = floor_k1_total
         profloor_alphak2 = floor_k2_total
         profloor_alphak4 = floor_k4_total
-        for matf in fdata:
-            search = Material.query.filter_by(name=matf.selected).first()
-            profloor_hz250_total += search.hz250
-
-
-            profloor_hz500_total += search.hz500
-
-
-            profloor_k1_total += search.k1
-
-
-            profloor_k2_total += search.k2
-
-
-            profloor_k4_total += search.k4
+        # for matf in fdata:
+        #     search = Material.query.filter_by(name=matf.selected).first()
+        #     profloor_hz250_total += search.hz250
+        #
+        #
+        #     profloor_hz500_total += search.hz500
+        #
+        #
+        #     profloor_k1_total += search.k1
+        #
+        #
+        #     profloor_k2_total += search.k2
+        #
+        #
+        #     profloor_k4_total += search.k4
 
     for fl in profloor:
         search = Floor.query.filter_by(selected=fl.material).first()
@@ -885,21 +886,21 @@ def CalculatePro():
         proceilling_alphak1 = ceilling_k1_total
         proceilling_alphak2 = ceilling_k2_total
         proceilling_alphak4 = ceilling_k4_total
-        for matc in cdata:
-            search = Material.query.filter_by(name=matc.selected).first()
-            proceilling_hz250_total += search.hz250
-
-
-            proceilling_hz500_total += search.hz500
-
-
-            proceilling_k1_total += search.k1
-
-
-            proceilling_k2_total += search.k2
-
-
-            proceilling_k4_total += search.k4
+        # for matc in cdata:
+        #     search = Material.query.filter_by(name=matc.selected).first()
+        #     proceilling_hz250_total += search.hz250
+        #
+        #
+        #     proceilling_hz500_total += search.hz500
+        #
+        #
+        #     proceilling_k1_total += search.k1
+        #
+        #
+        #     proceilling_k2_total += search.k2
+        #
+        #
+        #     proceilling_k4_total += search.k4
 
 
     for ce in proceilling:
@@ -936,7 +937,8 @@ def CalculatePro():
         proceilling_k4_total += ce.k4
 
     profinal_hz250 = profrontwall_hz250_total + proleftwall_hz250_total + prorightwall_hz250_total + probehindwall_hz250_total + profloor_hz250_total + proceilling_hz250_total
-
+    print("Value")
+    print(proleftwall_hz250_total)
     profinal_hz500 = profrontwall_hz500_total + proleftwall_hz500_total + prorightwall_hz500_total + probehindwall_hz500_total + profloor_hz500_total + proceilling_hz500_total
 
     profinal_k1 = profrontwall_k1_total + proleftwall_k1_total + prorightwall_k1_total + probehindwall_k1_total + profloor_k1_total + proceilling_k1_total
@@ -946,7 +948,8 @@ def CalculatePro():
     profinal_k4 = profrontwall_k4_total + proleftwall_k4_total + prorightwall_k4_total + probehindwall_k4_total + profloor_k4_total + proceilling_k4_total
 
     finalAlpa250 = profrontwall_alpha250 + proleftwall_alpha250 + prorightwall_alpha250 + probehindwall_alpha250 + profloor_alpha250 + proceilling_alpha250
-
+    print("Text2222")
+    print(finalAlpa250)
     finalAlpa500 = profrontwall_alpha500 + proleftwall_alpha500 + prorightwall_alpha500 + probehindwall_alpha500 + profloor_alpha500 + proceilling_alpha500
 
     finalAlpa1k = profrontwall_alphak1 + proleftwall_alphak1 + prorightwall_alphak1 + probehindwall_alphak1 + profloor_alphak1 + proceilling_alphak1
@@ -956,25 +959,36 @@ def CalculatePro():
     finalAlpa4k = profrontwall_alphak4 + proleftwall_alphak4 + prorightwall_alphak4 + probehindwall_alphak4 + profloor_alphak4 + proceilling_alphak4
 
     plusat250 = finalAlpa250 + profinal_hz250
+    keep = 0.161 * volume / finalAlpa250
+    print("Print Keep")
+    print(keep)
     print(plusat250)
     dividedat250 = volume / plusat250
     at250 = 0.161 * dividedat250
     at250 = round(at250, 2)
     plusat500 = finalAlpa500 + profinal_hz500
+    print("plus at 500")
+    print(plusat500)
     dividedat500 = volume / plusat500
     at500 = 0.161 * dividedat500
     print("rt500")
     print(at500)
     at500 = round(at500, 2)
     plusat1k = finalAlpa1k + profinal_k1
+    print("plus at 1k")
+    print(plusat1k)
     dividedat1k = volume / plusat1k
     at1k = 0.161 * dividedat1k
     at1k = round(at1k, 2)
     plusat2k = finalAlpa2k + profinal_k2
+    print("plus at 2k")
+    print(plusat2k)
     dividedat2k = volume / plusat2k
     at2k = 0.161 * dividedat2k
     at2k = round(at2k, 2)
     plusat4k = finalAlpa4k + profinal_k4
+    print("plus at 4k")
+    print(plusat4k)
     dividedat4k = volume / plusat4k
     at4k = 0.161 * dividedat4k
     at4k = round(at4k, 2)
